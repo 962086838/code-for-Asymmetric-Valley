@@ -18,12 +18,12 @@ python3 logistic_regression_2params.py
 
 
 The experimental results can be directly reproduced by the following code. Take ResNet164 on CIFAR10 as an example.    
-First you need to train a standard model by SGD and a correspending swa model.   
+First you need to train a standard model by SGD and a corresponding swa model.   
 ```
 python3 train2.py --dir=[save dir name] --dataset=CIFAR10 --data_path=[data path] --model=PreResNet164 --epochs=225 --lr_init=0.1 --wd=3e-4 --swa --swa_start=126 --swa_lr=0.05 --eval_freq=1 --save_freq=2 --cuda_visible_devices=0
 ```
 
-Now you have several checkpoints. To find an asymmetric valley, you need to continuely run sgd after the obtained swa model. This helps you find another solution locates in an asymmetric valley.  
+Now you have several checkpoints. To find an asymmetric valley, you need to continually run sgd after the obtained swa model. This helps you find another solution located in an asymmetric valley.  
 ```
 python3 sgd_after_swa.py --dir=savdirname --dataset=CIFAR10 --data_path=[data path] --model=PreResNet164  --wd=3e-4  --cuda_visible_devices=0 --resume=./train164/checkpoint-225.pt --lr_set=0.001
 ```
