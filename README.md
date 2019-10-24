@@ -2,12 +2,20 @@
 This repo contains the code used for NeurIPS 2019 paper "Asymmetric Valleys: Beyond Sharp and Flat Local Minima". [Paper Link](https://arxiv.org/abs/1902.00744v2)  
 Main experiment results can be directly reimplemented.  
 
-## Find asymmetric valleys
-Environment:
+## Environment:
 
 ```
 pytorch == 1.2.0
 ```
+
+## Find asymmetric valleys in 2D case
+Run
+```
+python3 logistic_regression_2params.py
+```
+
+## Find asymmetric valleys in deep neural networks
+
 
 The experimental results can be directly reproduced by the following code. Take ResNet164 on CIFAR10 as an example.    
 First you need to train a standard model by SGD and a correspending swa model.   
