@@ -27,10 +27,6 @@ parser.add_argument('--model', type=str, default=None, required=True, metavar='M
 parser.add_argument('--resume', type=str, default=None, metavar='CKPT',
                     help='checkpoint to resume training from (default: None)')
 
-parser.add_argument('--epochs', type=int, default=200, metavar='N', help='number of epochs to train (default: 200)')
-parser.add_argument('--save_freq', type=int, default=25, metavar='N', help='save frequency (default: 25)')
-parser.add_argument('--eval_freq', type=int, default=5, metavar='N', help='evaluation frequency (default: 5)')
-parser.add_argument('--lr_init', type=float, default=0.1, metavar='LR', help='initial learning rate (default: 0.01)')
 parser.add_argument('--lr_set', type=float, default=0.01, metavar='LR', help='set learning rate (default: 0.01)')
 parser.add_argument('--momentum', type=float, default=0.9, metavar='M', help='SGD momentum (default: 0.9)')
 parser.add_argument('--wd', type=float, default=1e-4, help='weight decay (default: 1e-4)')
@@ -110,7 +106,7 @@ print('SGD training', file = f_out)
 criterion = F.cross_entropy
 optimizer = torch.optim.SGD(
     model.parameters(),
-    lr=args.lr_init,
+    lr=args.lr_set,
     momentum=args.momentum,
     weight_decay=args.wd
 )
@@ -130,8 +126,7 @@ train_res_swa = utils.eval(loaders['train'], model, criterion)
 test_res_swa = utils.eval(loaders['test'], model, criterion)
 print(train_res_swa)
 print(test_res_swa)
-args.epochs = start_epoch+50
-for epoch in range(start_epoch, args.epochs):
+for epoch in range(start_epoch, start_epoch+50):
     time_ep = time.time()
 
     lr = args.lr_set
