@@ -1,4 +1,3 @@
-#python3 thedirection.py --dir=wide_thedirection_withbn4 --dataset=CIFAR10 --data_path=data --model=WideResNet28x10  --swa --distances=30 --distances_scale=1 --cuda_visible_devices=4 --resume=./wide_solid_withbn_4/checkpoint-50.pt
 import argparse
 import os
 import sys
@@ -115,10 +114,6 @@ parser.add_argument('--model1_resume', type=str, default=None, metavar='CKPT',
 parser.add_argument('--model2_resume', type=str, default=None, metavar='CKPT',
                     help='checkpoint to resume training from (default: None)')
 
-parser.add_argument('--epochs', type=int, default=200, metavar='N', help='number of epochs to train (default: 200)')
-parser.add_argument('--save_freq', type=int, default=25, metavar='N', help='save frequency (default: 25)')
-parser.add_argument('--eval_freq', type=int, default=5, metavar='N', help='evaluation frequency (default: 5)')
-parser.add_argument('--lr_init', type=float, default=0.1, metavar='LR', help='initial learning rate (default: 0.01)')
 parser.add_argument('--momentum', type=float, default=0.9, metavar='M', help='SGD momentum (default: 0.9)')
 parser.add_argument('--wd', type=float, default=1e-4, help='weight decay (default: 1e-4)')
 
@@ -212,12 +207,12 @@ def schedule(epoch):
 
 
 criterion = F.cross_entropy
-optimizer = torch.optim.SGD(
-    model_temp.parameters(),
-    lr=args.lr_init,
-    momentum=args.momentum,
-    weight_decay=args.wd
-)
+# optimizer = torch.optim.SGD(
+#     model_temp.parameters(),
+#     lr=args.lr_init,
+#     momentum=args.momentum,
+#     weight_decay=args.wd
+# )
 
 
 
@@ -297,10 +292,4 @@ plt.cla()
 plt.plot(test_acc_results_bnupdate)
 plt.savefig(os.path.join(args.dir, 'test_acc_results.png'))
 
-os.system('echo "'+' '.join(sys.argv)+'" | mail -s "a program finished just now" 962086838@qq.com')
 f_out.close()
-
-
-
-
-
